@@ -31,8 +31,17 @@ function fight(){
 }
 
 function winnerCheck(){
-	var outcome{
-		game_over = false,
+	var outcome = {
+		game_over: false,
 		winner: false
 	}
+	if(player1health <= 0 && player2health <=0){
+		outcome.game_over = true;
+	}else if(player1health <= 0 || player2health <= 0){
+		outcome.game_over = true;
+		outcome.winner = (player1health > player2health) ? player1name : player2name;
+	}
+	return outcome;
 }
+
+fight();
