@@ -18,7 +18,7 @@ function fight(){
 		current_round = i+1;
 		player1[1] -= Math.floor(Math.random() * (player2[2] - (player2[2]/2)) + (player2[2]/2));
 		player2[1] -= Math.floor(Math.random() * (player1[2] - (player1[2]/2)) + (player1[2]/2));
-		outcome = winnerCheck();
+		outcome = winnerCheck(rounds, current_round);
 		if(outcome.game_over){
 			break;
 		}else{
@@ -32,16 +32,23 @@ function fight(){
 	}
 }
 
-function winnerCheck(){
+function winnerCheck(rounds, current_round){
 	var outcome = {
 		game_over: false,
 		winner: false
 	}
-	if(player1[1] <= 0 && player2[1] <=0){
+	if(rounds == current_round){
 		outcome.game_over = true;
-	}else if(player1[1] <= 0 || player2[1] <= 0){
-		outcome.game_over = true;
-		outcome.winner = (player1[1] > player2[1]) ? player1[0] : player2[0];
+		if(player1[1] != player2[1]){
+			outcome.winner = (player1[1] > player2[1]) ? player1[0] : player2[0];
+		}
+	}else{
+		if(player1[1] <= 0 && player2[1] <=0){
+			outcome.game_over = true;
+		}else if(player1[1] <= 0 || player2[1] <= 0){
+			outcome.game_over = true;
+			outcome.winner = (player1[1] > player2[1]) ? player1[0] : player2[0];
+		}
 	}
 	return outcome;
 }
