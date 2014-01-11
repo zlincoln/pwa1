@@ -47,14 +47,34 @@
 		//--------------------------------------------------------
 		console.log("5. how many vowels in a word");
 
-				//PUT FUNCTION HERE
+		function vowelsInWord(string){
+			var count = 0;
+			count += string.match(/a/gi);
+			count += string.match(/e/gi);
+			count += string.match(/i/gi);
+			count += string.match(/o/gi);
+			count += string.match(/u/gi);
+			return count;
+		}
 
 		console.log(vowelsInWord('JavaScript'));
 
 		//--------------------------------------------------------
 		console.log("6. find number and create an array of even or odd numbers");
 
-				//PUT FUNCTION HERE
+		function findNum(arr, bool){
+			var output_even = (typeof bool === 'undefined') ? true : bool;
+			var even_array = [],
+					odd_array = [];
+			for(var i = 0; i < arr.length; i++){
+				if(arr[i] % 2 == 0){
+					even_array.push(arr[i]);
+				}else{
+					odd_array.push(arr[i]);
+				}
+			}
+			return (output_even) ? even_array : odd_array;
+		}
 
 		console.log(findNum([31,22,4,67,83,6,5,4]));
 		console.log(findNum([31,22,4,67,83,6,5,4], false));
