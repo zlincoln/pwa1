@@ -1,3 +1,9 @@
+/*
+- Zachary Lincoln
+- Duel 1
+- Sat 11, 2014
+*/
+
 var player1name = 'Kabal',
 		player1health = 100,
 		player1damage = 50;
