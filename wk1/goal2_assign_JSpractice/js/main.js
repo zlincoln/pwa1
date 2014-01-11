@@ -17,7 +17,9 @@
 		//--------------------------------------------------------
 		console.log("2. concat first and last name");
 
-				//PUT FUNCTION HERE
+		function fullName(firstname, lastname){
+			return firstname+" "+lastname;
+		}
 
 		console.log(fullName('James', 'Bond'));
 
@@ -25,14 +27,20 @@
 		console.log("3. word count");
 		var ipsum = "this is test text that is being used as input to a function"
 
-				//PUT FUNCTION HERE
+		function wordCount(string){
+			string2array = string.split(' ');
+			return string2array.length;
+		}
 
 		console.log(wordCount(ipsum));
 
 		//--------------------------------------------------------
 		console.log("4. sentence char count");
 
-				//PUT FUNCTION HERE
+		function charCount(string){
+			string2array = string.split('');
+			return string2array.length;
+		}
 
 		console.log(charCount(ipsum));
 
