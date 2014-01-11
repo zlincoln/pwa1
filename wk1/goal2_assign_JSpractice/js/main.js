@@ -1,3 +1,9 @@
+/*
+- Zachary Lincoln
+- Jan 11, 2014
+- JSPractice
+*/
+
 // self-executing function
 (function(){
 
