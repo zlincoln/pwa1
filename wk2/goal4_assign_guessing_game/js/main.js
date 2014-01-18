@@ -16,16 +16,44 @@ document.addEventListener('DOMContentLoaded', function(){
 				button: document.getElementsByTagName('button')[0],
 				outputContainer: document.getElementById('output')
 			},
-			gameOver = false;
+			guessesRemaining = 3,
+			outputMessage = null;
 
 	function evalGuess(e){
 		keycode = (e.keyCode) ? e.keyCode : null;
 		if(keycode == 13 || keycode == null){
-			console.log('heyo');
+			var guess = parseInt(el.input.value);
+			if(isNaN(guess) || (guess > 10 || guess < 1)){
+				outputMessage = 'Please guess a number between 1 & 10';
+			}else{
+				if(guess == randNum){
+					el.button.removeEventListener('click',evalGuess);
+					el.input.removeEventListener('keydown',evalGuess);
+					outputMessage = 'You Win!!';
+				}else if(guess > randNum){
+					outputMessage = 'Too High';
+				}else{
+					outputMessage = 'Too Low';
+				}
+				guessesRemaining--;
+				if(guessesRemaining == 0){
+					el.button.removeEventListener('click',evalGuess);
+					el.input.removeEventListener('keydown',evalGuess);
+					outputMessage += ' - Game Over';
+				}else{
+					outputMessage += ' - '+guessesRemaining+' Guesses Remaining';
+				}
+			}
+			updateInterface();
 		}
 	}
 
-	document.querySelector('button').addEventListener('click', evalGuess);
-	document.querySelector('input').addEventListener('keydown', evalGuess);
+	function updateInterface(){
+		console.log('hola');
+		el.outputContainer.innerText = outputMessage;
+	}
+
+	el.button.addEventListener('click', evalGuess);
+	el.input.addEventListener('keydown', evalGuess);
 
 });
