@@ -4,28 +4,44 @@
 - Sat 18, 2014
 */
 document.addEventListener('DOMContentLoaded', function(){
-	var player1 = {
-		name: 'Kabal',
-		health: 100,
-		damage: 50,
-		DOMContainer: document.querySelectorAll("#kabal p")[0]
-	}
+	
+	var playerArray = [
+		{
+			name: 'Kratos',
+			health: 100,
+			damage: 50,
+			DOMContainer: document.querySelectorAll('#kratos p')[0]
+		},
+		{
+			name: 'Kabal',
+			health: 100,
+			damage: 50,
+			DOMContainer: document.querySelectorAll('#kabal p')[0]
+		}
+	];
 
-	var player2 = {
-		name: 'Kratos',
-		health: 100,
-		damage: 50,
-		DOMContainer: document.querySelectorAll('#kratos p')[0]
+	var fightStatus = {
+		rounds: 10,
+		currentRound: 0,
+		gameOver: false,
+		winner: false
 	}
-
-	var playerArray = [player1,player2];
 
 	function updateInterface(){
-		var outcome = false;
+		var roundContainer = document.getElementById('round');
 		for(var i = 0; i < playerArray.length; i++){
 			playerArray[i].DOMContainer.innerHTML = '<h4>'+playerArray[i].name+'</h4>'+'<span>'+playerArray[i].health+'</span>';
 		}
-		// outcome = winnerCheck(rounds, current_round);
+		
+		winnerCheck();
+
+		if(fightStatus.gameOver){
+			roundContainer.innerHTML = (fightStatus.winner) ? fightStatus.winner+" Wins!!" : "Players Tied!";
+		}else if(fightStatus.currentRound > 0){
+			roundContainer.innerHTML = "Round "+fightStatus.currentRound;
+		}else{
+			roundContainer.innerHTML = "Click To Start Fight";
+		}
 	}
 
 	function fight(){
@@ -54,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 	function winnerCheck(rounds, current_round){
 		var outcome = {
-			game_over: false,
-			winner: false
+			
 		}
 		if(rounds == current_round){
 			outcome.game_over = true;
