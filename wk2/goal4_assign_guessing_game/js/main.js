@@ -27,21 +27,25 @@ document.addEventListener('DOMContentLoaded', function(){
 				outputMessage = 'Please guess a number between 1 & 10';
 			}else{
 				if(guess == randNum){
-					el.button.removeEventListener('click',evalGuess);
-					el.input.removeEventListener('keydown',evalGuess);
+					el.button.removeEventListener('click', evalGuess);
+					el.input.removeEventListener('keydown', evalGuess);
+					el.button.removeEventListener('keydown', evalGuess);
 					outputMessage = 'You Win!!';
+					updateInterface();
+					return;
 				}else if(guess > randNum){
-					outputMessage = 'Too High';
+					outputMessage = 'Too High - ';
 				}else{
-					outputMessage = 'Too Low';
+					outputMessage = 'Too Low - ';
 				}
 				guessesRemaining--;
 				if(guessesRemaining == 0){
-					el.button.removeEventListener('click',evalGuess);
-					el.input.removeEventListener('keydown',evalGuess);
-					outputMessage += ' - Game Over';
+					el.button.removeEventListener('click', evalGuess);
+					el.input.removeEventListener('keydown', evalGuess);
+					el.button.removeEventListener('keydown', evalGuess);
+					outputMessage += 'Game Over';
 				}else{
-					outputMessage += ' - '+guessesRemaining+' Guesses Remaining';
+					outputMessage += guessesRemaining+' Guesses Remaining';
 				}
 			}
 			updateInterface();
@@ -49,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function(){
 	}
 
 	function updateInterface(){
-		console.log('hola');
 		el.outputContainer.innerText = outputMessage;
 	}
 
 	el.button.addEventListener('click', evalGuess);
 	el.input.addEventListener('keydown', evalGuess);
+	el.button.addEventListener('keydown', evalGuess)
 
 });
