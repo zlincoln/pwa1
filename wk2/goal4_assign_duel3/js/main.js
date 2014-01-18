@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		}
 	}
 
-	function winnerCheck(rounds, current_round){
+	function winnerCheck(){
 		if(fightStatus.rounds == fightStatus.currentRound){
 			fightStatus.gameOver = true;
 			if(playerArray[0].health <= 0 && playerArray[1].health <=0){
