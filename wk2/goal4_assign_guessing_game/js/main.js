@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', function(){
 				outputMessage = 'Please guess a number between 1 & 10';
 			}else{
 				if(guess == randNum){
-					el.button.removeEventListener('click', evalGuess);
-					el.input.removeEventListener('keydown', evalGuess);
-					el.button.removeEventListener('keydown', evalGuess);
 					outputMessage = 'You Win!!';
+					removeEventListeners();
 					updateInterface();
 					return;
 				}else if(guess > randNum){
@@ -40,9 +38,7 @@ document.addEventListener('DOMContentLoaded', function(){
 				}
 				guessesRemaining--;
 				if(guessesRemaining == 0){
-					el.button.removeEventListener('click', evalGuess);
-					el.input.removeEventListener('keydown', evalGuess);
-					el.button.removeEventListener('keydown', evalGuess);
+					removeEventListeners();
 					outputMessage += 'Game Over';
 				}else{
 					outputMessage += guessesRemaining+' Guesses Remaining';
@@ -56,8 +52,14 @@ document.addEventListener('DOMContentLoaded', function(){
 		el.outputContainer.innerText = outputMessage;
 	}
 
+	function removeEventListeners(){
+		el.button.removeEventListener('click', evalGuess);
+		el.input.removeEventListener('keydown', evalGuess);
+		el.button.removeEventListener('keydown', evalGuess);
+	}
+
 	el.button.addEventListener('click', evalGuess);
 	el.input.addEventListener('keydown', evalGuess);
-	el.button.addEventListener('keydown', evalGuess)
+	el.button.addEventListener('keydown', evalGuess);
 
 });
