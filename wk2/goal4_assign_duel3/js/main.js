@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		winnerCheck();
 
 		if(fightStatus.gameOver){
-			roundContainer.innerHTML = (fightStatus.winner) ? fightStatus.winner+" Wins!!" : "Players Tied!";
+			roundContainer.innerHTML = (fightStatus.winner) ? fightStatus.winner : "Players Tied!";
 		}else if(fightStatus.currentRound > 0){
 			roundContainer.innerHTML = "Round "+fightStatus.currentRound;
 		}else{
@@ -45,27 +45,37 @@ document.addEventListener('DOMContentLoaded', function(){
 	}
 
 	function fight(){
-		playerArray[0].health -= Math.floor(Math.random() * (playerArray[1].damage - (playerArray[1].damage/2)) + (playerArray[1].damage/2));
-		playerArray[1].health -= Math.floor(Math.random() * (playerArray[0].damage - (playerArray[0].damage/2)) + (playerArray[0].damage/2));
-		updateInterface();
+		if(!fightStatus.gameOver){
+			fightStatus.currentRound++;
+			playerArray[0].health -= Math.floor(Math.random() * (playerArray[1].damage - (playerArray[1].damage/2)) + (playerArray[1].damage/2));
+			playerArray[1].health -= Math.floor(Math.random() * (playerArray[0].damage - (playerArray[0].damage/2)) + (playerArray[0].damage/2));
+			updateInterface();
+		}
 	}
 
 	function winnerCheck(rounds, current_round){
 		if(fightStatus.rounds == fightStatus.currentRound){
 			fightStatus.gameOver = true;
-			if(playerArray[0].health != playerArray[1].health){
+			if(playerArray[0].health <= 0 && playerArray[1].health <=0){
+				fightStatus.winner = "Both Players Die!";
+			}else if(playerArray[0].health != playerArray[1].health){
 				fightStatus.winner = (playerArray[0].health > playerArray[1].health) ? playerArray[0].name : playerArray[1].name;
+				fightStatus.winner += " Wins!!";
 			}
 		}else{
 			if(playerArray[0].health <= 0 && playerArray[1].health <=0){
-				outcome.game_over = true;
+				fightStatus.gameOver = true;
+				fightStatus.winner = "Both Players Die!";
 			}else if(playerArray[0].health <= 0 || playerArray[1].health <= 0){
-				outcome.game_over = true;
-				outcome.winner = (playerArray[0].health > playerArray[1].health) ? playerArray[0].name : playerArray[1].name;
+				fightStatus.gameOver = true;
+				fightStatus.winner = (playerArray[0].health > playerArray[1].health) ? playerArray[0].name : playerArray[1].name;
+				fightStatus.winner += " Wins!!";
 			}
 		}
 	}
 
+	document.querySelector('#fight_btn a').addEventListener('click', fight);
+
 	updateInterface();
-	
+
 });
